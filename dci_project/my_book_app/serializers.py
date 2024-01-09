@@ -27,7 +27,7 @@ class BookSerializer(serializers.ModelSerializer):
     title = serializers.CharField( max_length = 200,required=True, validators=[UniqueTitleValidator()],trim_whitespace = True)
     author = serializers.CharField(max_length = 200,required=True,validators=[UniqueTitleValidator()],trim_whitespace = True)
     description = serializers.CharField(required=False, allow_blank=True)
-    
+    #validate_<field name>
     def validate_title(self,value):
         return slugify(strip_tags(value))
     
@@ -37,7 +37,7 @@ class BookSerializer(serializers.ModelSerializer):
     def validate_author(self,value):
         return strip_tags(value)
     
-    # def to_internal_value(self, data):
+    # def to_internal_value(self, data): #admin or 1=1
     #     # Sanitize is_published field by converting string value to boolean
     #     if 'is_published' in data:
     #         data['is_published'] = str(data['is_published']).lower() == 'true'
