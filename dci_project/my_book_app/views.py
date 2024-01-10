@@ -7,14 +7,23 @@ from rest_framework.decorators import api_view
 from .permissions import IsAdminOrReadOnly
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.exceptions import ValidationError
+from drf_yasg.utils import swagger_auto_schema
 # Create your views here.
-
 
 class BookList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAdminOrReadOnly,permissions.IsAuthenticatedOrReadOnly]
+    
+    @swagger_auto_schema(operation_description='Retrieve the list of books')
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+    
+    @swagger_auto_schema(operation_description='Create a new book')
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
+    
     
     def perform_create(self, serializer):
         try :
@@ -28,6 +37,19 @@ class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BookSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAdminOrReadOnly,permissions.IsAuthenticatedOrReadOnly]
+    
+    @swagger_auto_schema(operation_description='Retrieve a book by id')
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+    
+    @swagger_auto_schema(operation_description='Update a single book')
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+    
+    @swagger_auto_schema(operation_description='Delete a book')
+    def delete(self, request, *args, **kwargs):
+        return super().delete(request, *args, **kwargs)
+    
     
     def perform_update(self, serializer):
         try:
