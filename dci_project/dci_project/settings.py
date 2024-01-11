@@ -40,10 +40,14 @@ INSTALLED_APPS = [
     'my_book_app',
     'rest_framework',
     'rest_framework.authtoken',
-    'drf_yasg'
+    'drf_yasg',
+    'django_filters'
+    
 ]
 
 REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
    'DEFAULT_AUTHENTICATION_CLASSES': [
        'rest_framework.authentication.TokenAuthentication',
        'rest_framework.authentication.SessionAuthentication',
@@ -144,3 +148,4 @@ SWAGGER_SETTINGS = {
         }
     },
 }
+
